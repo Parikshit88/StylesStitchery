@@ -10,7 +10,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div>
-          <img src="/homeimage1.jpg" alt="" />
+          <img src="/homeimage2.jpg" alt="" />
         </div>
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">

@@ -32,12 +32,11 @@ const Signup = () => {
     });
 
     let response = await res.json();
-    console.log(response);
 
     setEmail("");
     setName("");
     setPassword("");
-    toast.success("Your account has been created successfully", {
+    toast.success("Your account has been created", {
       position: "top-left",
       autoClose: 1000,
       hideProgressBar: false,
@@ -51,18 +50,18 @@ const Signup = () => {
 
   return (
     <div>
-    <ToastContainer
-          position="bottom-left"
-          autoClose={1000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
+      <ToastContainer
+        position="bottom-left"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
