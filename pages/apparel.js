@@ -63,7 +63,7 @@ const Apparel = ({ products }) => {
                         <button className="border-2 border-gray-300 ml-1 bg-red-600 rounded-full w-6 h-6 focus:outline-none"></button>
                       )}
                       {products[item].color.includes("Blue") && (
-                        <button className="border-2 border-gray-300 ml-1 bg-blue-600 rounded-full w-6 h-6 focus:outline-none"></button>
+                        <button className="border-2 border-gray-300 ml-1 bg-blue-900 rounded-full w-6 h-6 focus:outline-none"></button>
                       )}
                       {products[item].color.includes("Black") && (
                         <button className="border-2 border-gray-300 ml-1 bg-black rounded-full w-6 h-6 focus:outline-none"></button>
@@ -73,6 +73,9 @@ const Apparel = ({ products }) => {
                       )}
                       {products[item].color.includes("Yellow") && (
                         <button className="border-2 border-gray-300 ml-1 bg-yellow-400 rounded-full w-6 h-6 focus:outline-none"></button>
+                      )}
+                      {products[item].color.includes("Green") && (
+                        <button className="border-2 border-gray-300 ml-1 bg-green-600 rounded-full w-6 h-6 focus:outline-none"></button>
                       )}
                     </div>
                   </div>

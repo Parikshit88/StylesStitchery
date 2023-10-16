@@ -29,22 +29,24 @@ const Navbar = ({ cart, addToCart, clearCart, removeFromCart, subTotal }) => {
       </div>
       <div className="nav mx-4">
         <ul className="flex items-center space-x-6 font-semibold md:text-md">
-          <Link href={"/apparel"}>
+          <Link href={"/apparel"} className="hover:text-indigo-700">
             <li>Apparel</li>
           </Link>
-          <Link href={"/footwear"}>
+          <Link href={"/footwear"} className="hover:text-indigo-700">
             <li>Footwear</li>
           </Link>
-          <Link href={"/accessories"}>
+          <Link href={"/accessories"} className="hover:text-indigo-700">
             <li>Accessories</li>
           </Link>
-          <Link href={"/eyewear"}>
+          <Link href={"/eyewear"} className="hover:text-indigo-700">
             <li>Eyewear</li>
           </Link>
         </ul>
       </div>
       <div className="cursor-pointer cart absolute right-0 top-5 mx-5 flex">
-        <Link href={"/login"}><RiAccountPinCircleFill className=" text-xl md:text-2xl mx-2" /></Link>
+        <Link href={"/login"}>
+          <RiAccountPinCircleFill className=" text-xl md:text-2xl mx-2" />
+        </Link>
         <AiOutlineShoppingCart
           onClick={toggleCart}
           className=" text-xl md:text-2xl"
@@ -72,7 +74,9 @@ const Navbar = ({ cart, addToCart, clearCart, removeFromCart, subTotal }) => {
             return (
               <li key={k}>
                 <div className="item flex my-5">
-                  <div className="w-2/3 font-semibold">{cart[k].name}</div>
+                  <div className="w-2/3 font-semibold">
+                    {cart[k].name} ({cart[k].size}/{cart[k].variant}){" "}
+                  </div>
                   <div className=" w-1/3 flex items-center font-semibold justify-center text-lg">
                     <BsPatchMinusFill
                       onClick={() => {
@@ -107,7 +111,7 @@ const Navbar = ({ cart, addToCart, clearCart, removeFromCart, subTotal }) => {
             );
           })}
         </ol>
-        <div className="font-bold my-1 mb2">Subtotal: {subTotal}</div>
+        <div className="font-bold my-1 mb2">Subtotal: ₹{subTotal}</div>
 
         <div className="flex mt-6">
           <Link href={"/checkout"}>

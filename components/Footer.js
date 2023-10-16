@@ -14,35 +14,51 @@ const Footer = () => {
             >
               <Image src="/logo1.png" alt="" width={200} height={40} />
             </Link>
-            <p className="mt-2 text-sm text-gray-500 px-5">
-              Air plant banjo lyft occupy retro adaptogen indego
+            <p className="mt-2 text-semibold text-gray-600">Style Your Way</p>
+            <p className="text-sm text-gray-600 ">
+              Premium quality Topwear, Bottomwear, Footwear, Accessories &
+              Eyewear
             </p>
           </div>
           <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
               <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-                CATEGORIES
+                SHOP
               </h2>
               <nav className="list-none mb-10">
                 <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    First Link
-                  </a>
+                  <Link
+                    href={"/apparel"}
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    Apparel
+                  </Link>
                 </li>
                 <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Second Link
-                  </a>
+                  <Link
+                    href={"/footwear"}
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    {" "}
+                    Footwear
+                  </Link>
                 </li>
                 <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Third Link
-                  </a>
+                  <Link
+                    href={"/accessories"}
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    {" "}
+                    Accessories
+                  </Link>
                 </li>
                 <li>
-                  <a className="text-gray-600 hover:text-gray-800">
-                    Fourth Link
-                  </a>
+                  <Link
+                    href={"/eyewear"}
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    Eyewear
+                  </Link>
                 </li>
               </nav>
             </div>
@@ -75,7 +91,7 @@ const Footer = () => {
             </div>
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
               <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-                CATEGORIES
+                POLICY
               </h2>
               <nav className="list-none mb-10">
                 <li>
@@ -102,7 +118,7 @@ const Footer = () => {
             </div>
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
               <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-                CATEGORIES
+                ABOUT
               </h2>
               <nav className="list-none mb-10">
                 <li>
@@ -130,8 +146,11 @@ const Footer = () => {
           </div>
         </div>
         <div className="bg-gray-100">
-          <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-            <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
+          <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-col">
+            <p className="text-gray-500 flex justify-center">
+              © 2023 StylesStitchery - All Rights Reserved
+            </p>
+            {/* <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
               <a className="text-gray-500">
                 <svg
                   fill="currentColor"
@@ -187,7 +206,7 @@ const Footer = () => {
                   <circle cx="4" cy="4" r="2" stroke="none"></circle>
                 </svg>
               </a>
-            </span>
+            </span> */}
           </div>
         </div>
       </footer>

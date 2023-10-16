@@ -30,7 +30,7 @@ const Order = () => {
               <div className="flex border-t border-gray-200 py-2 text-center">
                 <span className="text-gray-600">Style Your Way (XL/Blue)</span>
                 <span className="ml-auto text-gray-600">1</span>
-                <span className="ml-auto text-gray-600">₹499</span>
+                <span className="ml-auto text-gray-600">₹{product.price}</span>
 
               </div>
               <div className="flex border-t border-gray-200 text-center py-2">

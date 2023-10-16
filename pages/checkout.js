@@ -171,7 +171,7 @@ const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
             );
           })}
         </ol>
-        <span className="font-bold">Subtotal: {subTotal}</span>
+        <span className="font-bold">Subtotal: ₹{subTotal}</span>
       </div>
       <Link href={"/checkout"}>
         <button className="flex ml-2 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-700 rounded text-base">
