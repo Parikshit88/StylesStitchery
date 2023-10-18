@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 const Signup = () => {
   const [name, setName] = useState();
@@ -47,6 +48,14 @@ const Signup = () => {
       theme: "light",
     });
   };
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <div>

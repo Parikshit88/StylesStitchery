@@ -1,12 +1,20 @@
 import { LiaSignInAltSolid } from "react-icons/lia";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, []);
+
   const router = useRouter();
   const handleChange = (e) => {
     if (e.target.name == "email") {
@@ -33,6 +41,7 @@ const Login = () => {
     setEmail("");
     setPassword("");
     if (response.success) {
+      localStorage.setItem("token", response.token);
       toast.success("You are logged in successfully", {
         position: "top-left",
         autoClose: 1000,
@@ -147,20 +156,7 @@ const Login = () => {
               />
             </div>
           </div>
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="remember-me"
-              name="remember-me"
-              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-            />
-            <label
-              htmlFor="remember-me"
-              className="ml-2 block text-base text-gray-800"
-            >
-              Remember me
-            </label>
-          </div>
+
           <div>
             <button
               type="submit"

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineShoppingCart, AiFillCloseCircle } from "react-icons/ai";
@@ -9,7 +9,17 @@ import {
 } from "react-icons/bs";
 import { RiAccountPinCircleFill } from "react-icons/ri";
 
-const Navbar = ({ cart, addToCart, clearCart, removeFromCart, subTotal }) => {
+const Navbar = ({
+  logout,
+  user,
+  cart,
+  addToCart,
+  clearCart,
+  removeFromCart,
+  subTotal,
+}) => {
+  const [dropdown, setDropdown] = useState(false);
+
   const toggleCart = () => {
     if (ref.current.classList.contains("translate-x-full")) {
       ref.current.classList.remove("translate-x-full");
@@ -22,7 +32,7 @@ const Navbar = ({ cart, addToCart, clearCart, removeFromCart, subTotal }) => {
   const ref = useRef();
   return (
     <div className="flex flex-col md:flex-row md:justify-start items-center justify-center py-2 shadow-lg sticky top-0 z-10 bg-white">
-      <div className="logo mx-4">
+      <div className="logo mr-auto md:mx-4">
         <Link href={"/"}>
           <Image src="/logo1.png" alt="" width={200} height={40} />
         </Link>
@@ -43,10 +53,56 @@ const Navbar = ({ cart, addToCart, clearCart, removeFromCart, subTotal }) => {
           </Link>
         </ul>
       </div>
-      <div className="cursor-pointer cart absolute right-0 top-5 mx-5 flex">
-        <Link href={"/login"}>
-          <RiAccountPinCircleFill className=" text-xl md:text-2xl mx-2" />
-        </Link>
+      <div className="cursor-pointer cart absolute items-center right-0 top-5 mx-5 flex">
+        <a
+          onClick={() => {
+            setDropdown(true);
+          }}
+          onMouseLeave={() => {
+            setDropdown(false);
+          }}
+        >
+          {dropdown && (
+            <div
+              onClick={() => {
+                setDropdown(true);
+              }}
+              onMouseLeave={() => {
+                setDropdown(false);
+              }}
+              className="absolute right-8 bg-white shadow-lg border top-6 rounded-md px-5 py-2 w-32"
+            >
+              <ul>
+                <Link href={'/myaccount'}>
+                  <li className="py-0.5 text-base hover:text-indigo-900">
+                    My Account
+                  </li>
+                </Link>
+                <Link href={'/orders'}>
+                  <li className="py-0.5 text-base hover:text-indigo-900">
+                    Orders
+                  </li>
+                </Link>
+                <li
+                  className="py-0.5 text-base hover:text-indigo-800"
+                  onClick={logout}
+                >
+                  Logout
+                </li>
+              </ul>
+            </div>
+          )}
+          {user.value && (
+            <RiAccountPinCircleFill className=" text-xl md:text-2xl mx-2" />
+          )}
+        </a>
+        {!user.value && (
+          <Link href={"/login"}>
+            <button className="bg-indigo-600 px-2 py-1 rounded-lg text-base text-white mx-3">
+              Login
+            </button>
+          </Link>
+        )}
         <AiOutlineShoppingCart
           onClick={toggleCart}
           className=" text-xl md:text-2xl"
