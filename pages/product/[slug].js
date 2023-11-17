@@ -10,7 +10,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
   const [pin, setPin] = useState();
   const [service, setService] = useState();
   const checkService = async () => {
-    let pins = await fetch("http://localhost:3000/api/pincode");
+    let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
     let pinJson = await pins.json();
     if (pinJson.includes(parseInt(pin))) {
       setService(true);
@@ -48,7 +48,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
   const [size, setSize] = useState(product.size);
 
   const refreshVariant = (newsize, newcolor) => {
-    let url = `http://localhost:3000/product/${variants[newcolor][newsize]["slug"]}`;
+    let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newcolor][newsize]["slug"]}`;
     window.location = url;
   };
 
@@ -326,7 +326,14 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                 </button>
                 <button
                   onClick={() => {
-                    addToCart(slug, 1, product.price, product.title, size, color);
+                    addToCart(
+                      slug,
+                      1,
+                      product.price,
+                      product.title,
+                      size,
+                      color
+                    );
                   }}
                   className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-2 md:px-3 focus:outline-none hover:bg-indigo-600 rounded"
                 >
@@ -360,7 +367,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                   Check
                 </button>
               </div>
-              {!service && service != null && (
+              {/* {!service && service != null && (
                 <div className="text-red-700 text-sm ml-12 md:ml-auto mt-3">
                   Sorry! We do not deliver to this Pincode
                 </div>
@@ -369,7 +376,7 @@ const Post = ({ addToCart, product, variants, buyNow }) => {
                 <div className="text-green-700 text-sm ml-12 md:ml-auto mt-3">
                   Yay! This Pincode is serviceable
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>

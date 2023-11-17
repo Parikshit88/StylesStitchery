@@ -1,13 +1,109 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BsPatchMinusFill,
   BsPatchPlusFill,
   BsFillBagCheckFill,
 } from "react-icons/bs";
 import Link from "next/link";
+import Head from "next/head";
+import Script from "next/script";
+
 const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+
+
+  const [address, setAddress] = useState("");
+  const [disabled, setDisabled] = useState(true);
+  const handleChange = (e) => {
+    if (e.target.name == "name") {
+      setName(e.target.value);
+    } else if (e.target.name == "email") {
+      setEmail(e.target.value);
+    } else if (e.target.name == "city") {
+      setCity(e.target.value);
+    } else if (e.target.name == "phone") {
+      setPhone(e.target.value);
+    } else if (e.target.name == "pincode") {
+      setPincode(e.target.value);
+    }
+    else if (e.target.name == "state") {
+      setState(e.target.value);
+    } else if (e.target.name == "address") {
+      setAddress(e.target.value);
+    }
+    setTimeout(() => {
+      if (
+        name.length > 3 &&
+        email.length > 3 &&
+        phone.length > 3 &&
+        pincode.length > 3 &&
+        address.length > 3
+      ) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+    }, 100);
+  };
+  const initiatePayment = async () => {
+    let oid = Math.floor(Math.random() * Date.now());
+    //get a transaction token
+
+    const data = { cart, subTotal, oid, email: "email" };
+    let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    let txnRes = await a.json();
+    let txnToken = txnRes.txnToken;
+
+    var config = {
+      root: "",
+      flow: "DEFAULT",
+      data: {
+        orderId: oid,
+        token: txnToken,
+        tokenType: "TXN_TOKEN",
+        amount: subTotal,
+      },
+      handler: {
+        notifyMerchant: function (eventName, data) {
+          console.log("notifyMerchant handler function called");
+          console.log("eventName =>", eventName);
+          console.log("data =>", data);
+        },
+      },
+    };
+
+    window.Paytm.CheckoutJS.init(config)
+      .then(function onSuccess() {
+        window.Paytm.CheckoutJS.invoke();
+      })
+      .catch(function onError(error) {
+        console.log("error => ", error);
+      });
+  };
   return (
     <div className="container p-5 md:m-auto">
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"
+        />
+      </Head>
+      <Script
+        type="application/javascript"
+        crossOrigin="anonymus"
+        src={`{process.env.NEXT_PUBLIC_PAYTM_HOST}/merchantpgui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`}
+      />
       <h1 className="font-semibold text-3xl my-8 text-center">Checkout</h1>
       <h2 className="font-semibold text-xl">1. Delivery Details</h2>
       <div className="mx-auto flex my-3">
@@ -17,6 +113,8 @@ const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
               Name
             </label>
             <input
+              onChange={handleChange}
+              value={name}
               type="text"
               id="name"
               name="name"
@@ -33,6 +131,8 @@ const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
               Email
             </label>
             <input
+              onChange={handleChange}
+              value={email}
               type="email"
               id="email"
               name="email"
@@ -50,6 +150,8 @@ const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
             Address
           </label>
           <textarea
+            onChange={handleChange}
+            value={address}
             id="address"
             name="address"
             cols="20"
@@ -68,6 +170,8 @@ const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
               Phone
             </label>
             <input
+              onChange={handleChange}
+              value={phone}
               type="number"
               id="phone"
               name="phone"
@@ -77,13 +181,16 @@ const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
         </div>
         <div className="px-2 w-1/2">
           <div className=" mb-4">
-            <label htmlFor="city" className="leading-7 text-base text-gray-600">
-              City
+            <label
+              htmlFor="pincode"
+              className="leading-7 text-base text-gray-600"
+            >
+              Pincode
             </label>
             <input
-              type="text"
-              id="city"
-              name="city"
+              type="number"
+              id="pincode"
+              name="pincode"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />
           </div>
@@ -99,27 +206,28 @@ const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
               State
             </label>
             <input
+            onChange={handleChange}
+              value={state}
               type="text"
               id="state"
               name="state"
-              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" readOnly={true}
             />
           </div>
         </div>
         <div className="px-2 w-1/2">
           <div className=" mb-4">
-            <label
-              htmlFor="pincode"
-              className="leading-7 text-base text-gray-600"
-            >
-              Pincode
+            <label htmlFor="city" className="leading-7 text-base text-gray-600">
+              City
             </label>
 
             <input
-              type="number"
-              id="pincode"
-              name="pincode"
-              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              onChange={handleChange}
+              value={city}
+              type="text"
+              id="city"
+              name="city"
+              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" readOnly={true}
             />
           </div>
         </div>
@@ -174,7 +282,11 @@ const Checkout = ({ cart, addToCart, subTotal, removeFromCart }) => {
         <span className="font-bold">Subtotal: ₹{subTotal}</span>
       </div>
       <Link href={"/checkout"}>
-        <button className="flex ml-2 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-700 rounded text-base">
+        <button
+          disabled={disabled}
+          onClick={initiatePayment}
+          className=" disabled:bg-indigo-300 flex ml-2 text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-700 rounded text-base"
+        >
           <BsFillBagCheckFill className="m-1" />
           Pay ₹{subTotal}
         </button>

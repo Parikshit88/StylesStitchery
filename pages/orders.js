@@ -7,7 +7,7 @@ const Orders = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (!localStorage.getItem("token")) {
       router.push("/");
     }
   }, []);
@@ -24,7 +24,7 @@ const Orders = () => {
                   <thead className="border-b font-medium dark:border-neutral-500">
                     <tr>
                       <th scope="col" className="px-6 py-4">
-                        #
+                        Sr. No
                       </th>
                       <th scope="col" className="px-6 py-4">
                         First

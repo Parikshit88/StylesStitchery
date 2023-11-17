@@ -6,8 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -28,7 +28,7 @@ const Login = () => {
     e.preventDefault();
 
     const data = { email, password };
-    let res = await fetch("http://localhost:3000/api/login", {
+    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const Login = () => {
         theme: "light",
       });
       setTimeout(() => {
-        router.push("http://localhost:3000");
+        router.push(`${process.env.NEXT_PUBLIC_HOST}`);
       }, 1500);
     } else {
       toast.error(response.error, {

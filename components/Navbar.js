@@ -54,7 +54,7 @@ const Navbar = ({
         </ul>
       </div>
       <div className="cursor-pointer cart absolute items-center right-0 top-5 mx-5 flex">
-        <a
+        <span
           onClick={() => {
             setDropdown(true);
           }}
@@ -73,12 +73,12 @@ const Navbar = ({
               className="absolute right-8 bg-white shadow-lg border top-6 rounded-md px-5 py-2 w-32"
             >
               <ul>
-                <Link href={'/myaccount'}>
+                <Link href={"/myaccount"}>
                   <li className="py-0.5 text-base hover:text-indigo-900">
                     My Account
                   </li>
                 </Link>
-                <Link href={'/orders'}>
+                <Link href={"/orders"}>
                   <li className="py-0.5 text-base hover:text-indigo-900">
                     Orders
                   </li>
@@ -95,7 +95,7 @@ const Navbar = ({
           {user.value && (
             <RiAccountPinCircleFill className=" text-xl md:text-2xl mx-2" />
           )}
-        </a>
+        </span>
         {!user.value && (
           <Link href={"/login"}>
             <button className="bg-indigo-600 px-2 py-1 rounded-lg text-base text-white mx-3">

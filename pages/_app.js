@@ -40,8 +40,8 @@ export default function App({ Component, pageProps }) {
     const token = localStorage.getItem("token");
     if (token) {
       setUser({ value: token });
-      setKey(Math.random());
     }
+    setKey(Math.random());
   }, [router.query]);
 
   const saveCart = (myCart) => {
@@ -97,6 +97,7 @@ export default function App({ Component, pageProps }) {
         waitingTime={400}
         onLoaderFinished={() => setProgress(0)}
       />
+
       <Navbar
         logout={logout}
         key={key}
@@ -107,6 +108,7 @@ export default function App({ Component, pageProps }) {
         clearCart={clearCart}
         subTotal={subTotal}
       />
+
       <Component
         buyNow={buyNow}
         cart={cart}
